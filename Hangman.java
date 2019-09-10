@@ -66,9 +66,8 @@ public class Hangman {
 }
 /*
 things to do:
-- minden indexet megtaláljon, ne csak az elsőt
+
 - kiírja melyik betűket néztük már meg
 - próbálkozások száma
-- do while amíg nem nyersz vagy nem fogy el a próbálkozás
-- összehasonlítsa mindig az unknown-t az originallal, és ha egyenlők, akkor vége a játéknak.
+
 */
