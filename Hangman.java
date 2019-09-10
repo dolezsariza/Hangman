@@ -6,8 +6,29 @@ public class Hangman {
         System.out.println("|^^^^^^^^^^^^^^^^^|" + "\n" + "| Hangman is cool |" + "\n" + "|_________________|");
         String word = choosenWord();
         String unknown = unknownWord(word);
-        char letter = getUserInput();
-        findAndReplaceCharacter(letter,word,unknown);
+        System.out.println(word);
+        int triesLeft = 6;
+        String usedLetters = "You've already tried these letters: ";
+        do {
+            System.out.println(unknown);
+            if (unknown.equals(word)) {
+                System.out.println("You didn't die :(");
+                break;
+            } else {
+                char letter = getUserInput();
+                
+                usedLetters = usedLetters + " " + String.valueOf(letter) + ",";
+                System.out.println(usedLetters);
+                if (isCharacterInWord(word, letter) == true) {
+                    unknown = findAndReplaceCharacter(letter,word,unknown);
+                } else {
+                    triesLeft -= 1;
+                    System.out.println("Wrong letter! :)");
+                }
+                
+            }
+        } while (triesLeft != 0);
+        System.out.println("U ded");
     
         
     }
@@ -19,9 +40,8 @@ public class Hangman {
     }
 
     public static String unknownWord(String originalWord){
-        System.out.println(originalWord);
+        
         String unknownWord = "_".repeat(originalWord.length());
-        System.out.println(unknownWord);
         return unknownWord;
     }
 
@@ -33,34 +53,38 @@ public class Hangman {
         return letter;
     }
 
-    public static int findAndReplaceCharacter(char letter, String originalWord, String unknown) {
+    public static String findAndReplaceCharacter(char letter, String originalWord, String unknown) {
         int currentIndex = 0;
-        String newWord = "";
+        String newWord = unknown;
         for (int i = 0; i <= originalWord.length(); i++){
             int index =originalWord.indexOf(letter, currentIndex);
             if (index == -1) {
                 break;
-            }
-            currentIndex = index;
-            
-            if (i == 0){
-                newWord = insertCharacter(unknown, letter, index);
-                currentIndex = currentIndex + 1;
             } else {
-                newWord = insertCharacter(newWord, letter, index); 
-                currentIndex = currentIndex + 1;
-            }
+                currentIndex = index;
+                
+                if (i == 0){
+                    newWord = insertCharacter(unknown, letter, index);
+                    currentIndex = currentIndex + 1;
+                } else {
+                    newWord = insertCharacter(newWord, letter, index); 
+                    currentIndex = currentIndex + 1;
+                }
+            }   
         }
-
-        System.out.println(newWord);
-        int index = originalWord.indexOf(letter);
-        return index;
+        return newWord;
+        
     }
 
     public static String insertCharacter(String unknown, char letter, int index) {
         StringBuilder myName = new StringBuilder(unknown);
         myName.setCharAt(index, letter);
         return myName.toString();
+    }
+
+    public static boolean isCharacterInWord(String word, char letter) {
+        String character = String.valueOf(letter);
+        return word.contains(character);
     }
 
 }
