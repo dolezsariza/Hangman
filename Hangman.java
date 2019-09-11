@@ -3,33 +3,40 @@ import java.util.Scanner;
 public class Hangman {
 
     public static void main(String[] args) {
-        System.out.println("|^^^^^^^^^^^^^^^^^|" + "\n" + "| Hangman is cool |" + "\n" + "|_________________|");
+        System.out.println("|^^^^^^^^^^^^^^^^^|" + "\n" + "| Hangman is cool |" + "\n" + "|_________________| \n\n");
         String word = choosenWord();
         String unknown = unknownWord(word);
-        System.out.println(word);
+        //System.out.println(word);
         int triesLeft = 6;
-        String usedLetters = "You've already tried these letters: ";
+        String usedLetters = "";
         do {
-            System.out.println(unknown);
+            System.out.println(unknown + "\n");
             if (unknown.equals(word)) {
-                System.out.println("You didn't die :(");
+                
                 break;
             } else {
                 char letter = getUserInput();
+                if (usedLetters.contains(String.valueOf(letter)) == false){
+                    usedLetters = usedLetters + " " + String.valueOf(letter) + ",";
+                }
                 
-                usedLetters = usedLetters + " " + String.valueOf(letter) + ",";
-                System.out.println(usedLetters);
                 if (isCharacterInWord(word, letter) == true) {
                     unknown = findAndReplaceCharacter(letter,word,unknown);
                 } else {
                     triesLeft -= 1;
-                    System.out.println("Wrong letter! :)");
+                    System.out.println("\n Wrong letter! :) \n");
                 }
-                
+                System.out.println("You've already tried these letters: \n");
+                System.out.println(usedLetters + "\n");
             }
+            System.out.println("You've got " + triesLeft + " tries left \n");
         } while (triesLeft != 0);
-        System.out.println("U ded");
-    
+        if (triesLeft == 0){
+            System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "|      U ded        |" + "\n" + "|___________________| \n\n");
+            }
+        else {
+            System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "| You didn't die :( |" + "\n" + "|___________________| \n\n");
+        }
         
     }
     public static String choosenWord() {
@@ -46,7 +53,7 @@ public class Hangman {
     }
 
     public static char getUserInput() {
-        System.out.println("Guess a letter: ");
+        System.out.println("Guess a letter: \n");
         Scanner scan = new Scanner(System.in);
         String guess = scan.next();
         char letter = guess.charAt(0);
