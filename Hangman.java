@@ -9,7 +9,7 @@ public class Hangman {
         String word = choosenWord();
         String unknown = unknownWord(word);
         //System.out.println(word);
-        int triesLeft = 6;
+        int triesLeft = 8;
         String usedLetters = "";
         do {
             
@@ -39,7 +39,8 @@ public class Hangman {
         } while (triesLeft != 0);
         if (triesLeft == 0){
             terminal.setColor(Color.RED);
-            System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "|      U ded        |" + "\n" + "|___________________| \n\n");
+            System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "|      U ded  :)    |" + "\n" + "|___________________| \n\n");
+            System.out.println("The original word was: " + word);
             }
         else {
             terminal.setColor(Color.GREEN);
@@ -48,7 +49,7 @@ public class Hangman {
         
     }
     public static String choosenWord() {
-        String[] words = {"cabbage","moustache","codecool"};
+        String[] words = {"greenbob","illuminati","supercalifragilisticexpialidocious","subdermatoglyphic"};
         int x = (int )(Math.random()* words.length);
         String word = words[x];
         return word;
