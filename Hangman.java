@@ -1,15 +1,18 @@
 import java.util.Scanner;
+import com.codecool.termlib.*;
 
 public class Hangman {
 
     public static void main(String[] args) {
-        System.out.println("|^^^^^^^^^^^^^^^^^|" + "\n" + "| Hangman is cool |" + "\n" + "|_________________| \n\n");
+        Terminal terminal = new Terminal();
+        System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "| HangMeMan is cool |" + "\n" + "|___________________| \n\n\n\n");
         String word = choosenWord();
         String unknown = unknownWord(word);
         //System.out.println(word);
         int triesLeft = 6;
         String usedLetters = "";
         do {
+            
             System.out.println(unknown + "\n");
             if (unknown.equals(word)) {
                 
@@ -26,15 +29,20 @@ public class Hangman {
                     triesLeft -= 1;
                     System.out.println("\n Wrong letter! :) \n");
                 }
+                terminal.clearScreen();
+                System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "| HangMeMan is cool |" + "\n" + "|___________________| \n\n\n\n");
                 System.out.println("You've already tried these letters: \n");
                 System.out.println(usedLetters + "\n");
+                System.out.println("You've got " + triesLeft + " tries left \n");
             }
-            System.out.println("You've got " + triesLeft + " tries left \n");
+            
         } while (triesLeft != 0);
         if (triesLeft == 0){
+            terminal.setColor(Color.RED);
             System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "|      U ded        |" + "\n" + "|___________________| \n\n");
             }
         else {
+            terminal.setColor(Color.GREEN);
             System.out.println("|^^^^^^^^^^^^^^^^^^^|" + "\n" + "| You didn't die :( |" + "\n" + "|___________________| \n\n");
         }
         
